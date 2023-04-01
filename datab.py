@@ -4,7 +4,7 @@ db = SqliteDatabase('Netf.db')
 
 class Original(Model):
     Title = CharField()
-    Genre = CharField()
+    Genre = IntegerField()
     Premiere = CharField()
     Runtime = IntegerField()
     IMDB_Score = FloatField()
