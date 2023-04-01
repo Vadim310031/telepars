@@ -1,3 +1,4 @@
+
 import pandas as pd
 from datab import Original
 from prime import *
@@ -15,12 +16,17 @@ for row in a.values:
         else:
             sl[you] = current
             current = prime(current)
-    p = 1
-    for name in b:
-        p = p * sl[name]
-    Original.create(Title = row[0], Genre = p, Premiere = row[2], Runtime = row[3],
-                     IMDB_Score = row[4], Language = row[5])
-print(sl)
+if __name__ == "__main__":  
+    for row in a.values:
+        a = row[1]
+        b = a.split("/")
+    
+        p = 1
+        for name in b:
+            p = p * sl[name]
+        Original.create(Title = row[0], Genre = p, Premiere = row[2], Runtime = row[3],
+                         IMDB_Score = row[4], Language = row[5])
+
 
 # for row in a.values:
     
