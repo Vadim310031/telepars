@@ -38,22 +38,66 @@ def filter_message(message):
     text = message.text.split("/")
     p = 1
     for name in text:
-        p = p * sl[name]
-    query = Original.get()
-    for elem in query.select().where(Original["Genre"]%p == 0).order_by(Original.IMDB_Score.desc()).limit(100):                         #.where(Original.Runtime >70).order_by(fn.Random()).order_by(Original.Runtime):
+        p = p * sl.get(name,1 )
+    query = Original.get()                 #Original.Genre%p == 0
+    print(p)
+    for elem in query.select():                         #.where(Original.Runtime >70).order_by(fn.Random()).order_by(Original.Runtime):
 
         apper = [elem.Title, elem.Genre, elem.IMDB_Score]
         spicok.append(apper)
-    b = random.sample(spicok, 5)
 
+    new_spisok = []
+    for i in spicok:
+        if i[1]%p == 0:
+            new_spisok.append(i.copy())
+
+    b = random.sample(new_spisok, 5)
+    print(new_spisok)
     e = sorted(b, key=itemgetter(2), reverse=True)
     
     for i in e:
         buf = ""
         for elm in i:
             buf = buf + str(elm) + ' '
+        print(buf)
         bot.send_message(message.from_user.id,str(buf)) 
 
 
 
 bot.polling(none_stop=True, interval=0)
+
+# spicok = []
+# text = input(": ").split("/")
+# p = 1
+# for name in text:
+#     p = p * sl.get(name,1 )
+# query = Original.get()                 #Original.Genre%p == 0
+# print(p)
+# for elem in query.select():                         #.where(Original.Runtime >70).order_by(fn.Random()).order_by(Original.Runtime):
+
+#     apper = [elem.Title, elem.Genre, elem.IMDB_Score]
+#     spicok.append(apper)
+
+# new_spisok = []
+# for i in spicok:
+#     if i[1]%p == 0:
+#         new_spisok.append(i.copy())
+
+# b = random.sample(new_spisok, 5)
+# print(new_spisok)
+# e = sorted(b, key=itemgetter(2), reverse=True)
+    
+# for i in e:
+#     buf = ""
+#     for elm in i:
+# #         buf = buf + str(elm) + ' '
+# #     print(buf)
+
+
+
+
+
+# def print_ganre():
+#     print(sl)
+
+# print_ganre()
